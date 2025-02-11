@@ -9,6 +9,7 @@ router.route('/')
 
 router.route('/:code')
     .get(ShippingController.getShipping)
-    .put(ShippingController.updateShipping);
+    .put(ShippingController.updateShipping)
+    .delete(ShippingController.deleteShipping);
 
 export default router;

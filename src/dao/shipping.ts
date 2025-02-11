@@ -42,4 +42,26 @@ export default class ShippingDAO {
             return { error };
         }
     }
+
+    static async updateShipping(shippingCode: number, newContent: object){
+        try {
+            const shipping = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
+
+            return await shippingDataBase.updateOne({ _id: shipping["_id"] }, { $set: newContent });
+        } catch(error){
+            console.error(error);
+            return { error };
+        }
+    }
+
+    static async deleteShipping(shippingCode: number){
+        try {
+            const shipping = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
+
+            return await shippingDataBase.deleteOne({ _id: shipping["_id"] });
+        } catch(error){
+            console.error(error);
+            return { error };
+        }
+    }
 }

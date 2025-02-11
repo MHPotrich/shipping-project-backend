@@ -24,6 +24,14 @@ export default class ShippingController {
     }
 
     static async updateShipping(request, response){
+        const mongoResponse = await ShippingDAO.updateShipping(request.param.code, request.body);
 
+        response.send(mongoResponse);
+    }
+
+    static async deleteShipping(request, response){
+        const mongoResponse = await ShippingDAO.deleteShipping(request.param.code);
+
+        response.send(mongoResponse);
     }
 }
