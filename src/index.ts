@@ -1,12 +1,19 @@
-import express from 'express';
+import 'dotenv/config'
+import app from "./server.js";
+import { MongoClient } from "mongodb";
+import ShippingDAO from './dao/shipping.js';
 
-const instance = express();
-const port: number = 3000;
+const port = process.env.port || 3000;
+const username = process.env.MONGO_USERNAME;
+const password = process.env.MONGO_PASSWORD;
+const url = `mongodb+srv://${username}:${password}@cluster0.nc5q0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-instance.get('/', (request, response) => {
-    response.send('server is running');
-});
-
-instance.listen(port, () => {
-    console.log(`running on port ${port}`);
+MongoClient.connect(url,{ maxPoolSize: 50 }).then(client => {
+    ShippingDAO.injectDataBase(client);
+    app.listen(port, () => {
+        console.log(`Running on port: ${port}`);
+    });
+}).catch(error => {
+    console.error(error.stack);
+    process.exit(1);
 });
