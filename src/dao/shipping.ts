@@ -8,7 +8,7 @@ export default class ShippingDAO {
         if(shippingDataBase) return;
 
         try {
-            shippingDataBase = await conn.db("shipping").collection("shipping");
+            shippingDataBase = await conn.db(global.dataBaseName).collection("shipping");
         } catch(error){
             console.error(error);
         }

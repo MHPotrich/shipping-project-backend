@@ -1,0 +1,29 @@
+export default class Location {
+    private country: string;
+    private state: string;
+    private city: string;
+    private details: string;
+
+    constructor(country: string, state: string, city: string, details: string = ""){
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.details = details;
+    }
+
+    public getCountry(): string {
+        return this.country;
+    }
+
+    public getState(): string {
+        return this.state;
+    }
+
+    public getCity(): string {
+        return this.city;
+    }
+
+    public getDetails(): string {
+        return this.details;
+    }
+}

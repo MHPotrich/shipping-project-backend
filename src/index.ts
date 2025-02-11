@@ -8,6 +8,8 @@ const username = process.env.MONGO_USERNAME;
 const password = process.env.MONGO_PASSWORD;
 const url = `mongodb+srv://${username}:${password}@cluster0.nc5q0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
+global.dataBaseName = "shipping-data-base";
+
 MongoClient.connect(url,{ maxPoolSize: 50 }).then(client => {
     ShippingDAO.injectDataBase(client);
     app.listen(port, () => {
