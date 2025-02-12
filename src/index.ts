@@ -11,7 +11,8 @@ const url = `mongodb+srv://${username}:${password}@cluster0.nc5q0.mongodb.net/?r
 global.dataBaseName = "shipping-data-base";
 
 MongoClient.connect(url,{ maxPoolSize: 50 }).then(client => {
-    ShippingDAO.injectDataBase(client);
+    //ShippingDAO.injectDataBase(client);
+    global.mongoClient = client;
     app.listen(port, () => {
         console.log(`Running on port: ${port}`);
     });

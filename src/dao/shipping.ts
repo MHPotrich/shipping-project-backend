@@ -1,38 +1,45 @@
-import mongodb from 'mongodb';
+import Address from "../class/address.js";
+import Shipping from "../class/shipping.js";
+import AddressDAO from "./address.js";
 
-const ObjectId = mongodb.ObjectId;
 let shippingDataBase;
 
+async function getShippingDataBase(): Promise<void> {
+    if(shippingDataBase) return;
+
+    shippingDataBase = await global.mongoClient.db(global.dataBaseName).collection("shipping");
+}
+
 export default class ShippingDAO {
-    static async injectDataBase(conn){
-        if(shippingDataBase) return;
+    static async addShipping(shipping): Promise<any> {
+        await getShippingDataBase();
 
-        try {
-            shippingDataBase = await conn.db(global.dataBaseName).collection("shipping");
-        } catch(error){
-            console.error(error);
-        }
-    }
-
-    static async addShipping(shipping){
         try {
             return await shippingDataBase.insertOne(shipping);
         } catch(error){
             console.error(error);
-            return { error };
+            return null;
         }
     }
 
-    static async getShipping(shippingCode: number){
+    static async getShipping(shippingCode: number): Promise<Shipping|null> {
+        await getShippingDataBase();
+
         try {
-            return await shippingDataBase.findOne({ 'shippingCode': shippingCode });
+            const shippingMongo = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
+            const destination: Address = await AddressDAO.getAddress(shippingMongo.destination);
+            const shipping: Shipping = new Shipping(shippingMongo.sendedBy, shippingMongo.sendedFor, destination);
+
+            return shipping;
         } catch(error){
             console.error(error);
-            return { error };
+            return null;
         }
     }
 
     static async getAllShipping(){
+        await getShippingDataBase();
+
         try {
             const cursor = await shippingDataBase.find({});
 
@@ -44,6 +51,8 @@ export default class ShippingDAO {
     }
 
     static async updateShipping(shippingCode: number, newContent: object){
+        await getShippingDataBase();
+
         try {
             const shipping = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
 
@@ -55,6 +64,8 @@ export default class ShippingDAO {
     }
 
     static async deleteShipping(shippingCode: number){
+        await getShippingDataBase();
+
         try {
             const shipping = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
 

@@ -1,6 +1,7 @@
 import Address from "./address.js";
-import Client from "./client.js";
+import User from "./user.js";
 import Location from "./location.js";
+import IdGenerator from "../util/id_generator.js";
 
 enum shippingStatus {
     created = "CREATED",
@@ -9,16 +10,18 @@ enum shippingStatus {
 }
 
 export default class Shipping {
+    private shippingCode: number;
     private status: shippingStatus;
     private sendedBy: number;
     private sendedFor: number;
-    private locationHistory: Array<Location>;
-    private destination: Address;
+    private locationHistory: Array<Location> = [];
+    private destination: number;
 
-    constructor(sendedBy: Client, sendedFor: Client, destination: Address){
+    constructor(sendedBy: User, sendedFor: User, destination: Address){
+        this.shippingCode = IdGenerator.generateId()
         this.sendedBy = sendedBy.getId();
         this.sendedFor = sendedFor.getId();
-        this.destination = destination;
+        this.destination = destination.getId();
         this.status = shippingStatus.created;
     }
 
@@ -36,5 +39,9 @@ export default class Shipping {
 
     public getLocationHistory(): Array<Location> {
         return this.locationHistory;
+    }
+
+    public getDestination(): number {
+        return this.destination;
     }
 }
