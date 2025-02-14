@@ -11,7 +11,8 @@ export default class ShippingController {
     }
 
     static async getShipping(request, response): Promise<void> {
-        const shipping = await ShippingDAO.getShipping(request.params.code);
+        const shippingCode = Number(request.params.code);
+        const shipping = await ShippingDAO.getShipping(shippingCode);
 
         response.send(shipping);
     }
@@ -31,13 +32,15 @@ export default class ShippingController {
     }
 
     static async updateShipping(request, response): Promise<void> {
-        const mongoResponse = await ShippingDAO.updateShipping(request.params.code, request.body);
+        const shippingCode = Number(request.params.code);
+        const mongoResponse = await ShippingDAO.updateShipping(shippingCode, request.body);
 
         response.send(mongoResponse);
     }
 
     static async deleteShipping(request, response): Promise<void> {
-        const mongoResponse = await ShippingDAO.deleteShipping(request.params.code);
+        const shippingCode = Number(request.params.code);
+        const mongoResponse = await ShippingDAO.deleteShipping(shippingCode);
 
         response.send(mongoResponse);
     }

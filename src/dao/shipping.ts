@@ -1,6 +1,8 @@
 import Address from "../class/address.js";
 import Shipping from "../class/shipping.js";
+import User from "../class/user.js";
 import AddressDAO from "./address.js";
+import UserDAO from "./user.js";
 
 let shippingDataBase;
 
@@ -28,7 +30,9 @@ export default class ShippingDAO {
         try {
             const shippingMongo = await shippingDataBase.findOne({ 'shippingCode': shippingCode });
             const destination: Address = await AddressDAO.getAddress(shippingMongo.destination);
-            const shipping: Shipping = new Shipping(shippingMongo.sendedBy, shippingMongo.sendedFor, destination);
+            const sendedBy: User = await UserDAO.getUser(shippingMongo.sendedBy);
+            const sendedFor: User = await UserDAO.getUser(shippingMongo.sendedFor);
+            const shipping: Shipping = new Shipping(sendedBy, sendedFor, destination);
 
             return shipping;
         } catch(error){

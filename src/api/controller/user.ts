@@ -7,7 +7,8 @@ export default class UserController {
     }
 
     static async getUser(request, response): Promise<void> {
-        const user = await UserDAO.getUser(request.params.id);
+        const id = Number(request.params.id);
+        const user = await UserDAO.getUser(id);
 
         response.send(user);
     }
@@ -22,13 +23,15 @@ export default class UserController {
     }
 
     static async updateUser(request, response): Promise<void> {
-        const mongoResponse = await UserDAO.updateUser(request.params.id, request.body);
+        const id = Number(request.params.id);
+        const mongoResponse = await UserDAO.updateUser(id, request.body);
 
         response.send(mongoResponse);
     }
 
     static async deleteUser(request, response): Promise<void> {
-        const mongoResponse = await UserDAO.deleteUser(request.params.id);
+        const id = Number(request.params.id);
+        const mongoResponse = await UserDAO.deleteUser(id);
 
         response.send(mongoResponse);
     }
