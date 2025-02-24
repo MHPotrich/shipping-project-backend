@@ -25,7 +25,7 @@ export default class UserDAO {
 
         try {
             const userMongo = await userDataBase.findOne({ 'id': id });
-            const user: User = new User(userMongo.firstName, userMongo.lastName, userMongo.id);
+            const user: User = new User(userMongo.firstName, userMongo.lastName, userMongo.password, userMongo.id);
 
             return user;
         } catch(error){
@@ -38,10 +38,10 @@ export default class UserDAO {
         await getUserDataBase();
 
         try {
-            const cursor = await userDataBase.find({});
+            const cursor = await userDataBase.find().toArray();
             let users: Array<User> = [];
 
-            cursor.toArray().forEach(item => users.push(new User(item.firstName, item.lastName, item.id)));
+            cursor.forEach(item => users.push(new User(item.firstName, item.lastName, item.password, item.id)));
 
             return users;
         } catch(error){
