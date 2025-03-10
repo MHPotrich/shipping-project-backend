@@ -4,13 +4,19 @@ Backend created to manage and consult shippings.
 
 ## Requeriments
 
-### environment varibles
+- Node.js: [Node.js](https://nodejs.org/)
+
+or
+
+- Docker: [Docker](https://www.docker.com/)
+
+## Environment Variables
 
 It's required to a .env file in the root directory with the follows values:
 
--   'MONGO_USERNAME': mongo username
--   'MONGO_PASSWORD': mongo password
--   'MONGO_CLUSTER_NAME': mongo cluster name
+- `MONGO_USERNAME`: mongo username
+- `MONGO_PASSWORD`: mongo password
+- `MONGO_CLUSTER_NAME`: mongo cluster name
 
 ## Routes
 
