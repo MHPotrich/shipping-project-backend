@@ -5,10 +5,12 @@ Backend created to manage and consult shippings.
 ## Requeriments
 
 - Node.js: [Node.js](https://nodejs.org/)
+- MongoDB: [MongoDB](https://www.mongodb.com/)
 
 or
 
 - Docker: [Docker](https://www.docker.com/)
+- MongoDB: [MongoDB](https://www.mongodb.com/)
 
 ## Environment Variables
 
