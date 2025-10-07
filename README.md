@@ -1,4 +1,4 @@
-# shipping-project-backend
+# Shipping Project Backend
 
 Backend created to manage and consult shippings.
 
