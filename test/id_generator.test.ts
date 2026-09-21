@@ -1,5 +1,5 @@
 const { describe, expect, test } = require("@jest/globals");
-const id_generator = require("../src/utils/id_generator.ts");
+const id_generator = require("../src/util/id_generator.ts");
 
 describe("util - id_generator", () => {
 	test("Generate id", () => {
