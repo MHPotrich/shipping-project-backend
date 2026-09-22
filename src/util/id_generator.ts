@@ -1,5 +1,5 @@
 export default class IdGenerator {
-    static generateId(): number {
+    static generateId() {
         return Math.round(Math.random() * 1000000);
     }
 }
